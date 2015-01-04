@@ -132,34 +132,6 @@ namespace BalloonPopsGame
 
         }
 
-        static void sortAndPrintChartFive(string[,] tableToSort)
-        {
-
-            List<klasacia> klasirane = new List<klasacia>();
-
-            for (int i = 0; i < 5; ++i)
-            {
-                if (tableToSort[i, 0] == null)
-                {
-                    break;
-                }
-
-                klasirane.Add(new klasacia(int.Parse(tableToSort[i, 0]), tableToSort[i, 1]));
-
-            }
-
-            klasirane.Sort();
-            Console.WriteLine("---------TOP FIVE CHART-----------");
-            for (int i = 0; i < klasirane.Count; ++i)
-            {
-                klasacia slot = klasirane[i];
-                Console.WriteLine("{2}.   {0} with {1} moves.", slot.Name, slot.Value, i + 1);
-            }
-            Console.WriteLine("----------------------------------");
-
-
-        }
-
         static void Main(string[] args)
         {
             string[,] topFive = new string[5, 2];
@@ -186,7 +158,7 @@ namespace BalloonPopsGame
                         break;
 
                     case "TOP":
-                        sortAndPrintChartFive(topFive);
+                        RankList.Print(topFive);
                         break;
 
                     case "EXIT":
@@ -245,9 +217,9 @@ namespace BalloonPopsGame
         private static void GameOver(string[,] topFive, ref byte[,] matrix, ref int userMoves)
         {
             Console.WriteLine("Gratz ! You completed it in {0} moves.", userMoves);
-            if (topFive.signIfSkilled(userMoves))
+            if (RankList.SignIfSkilled(topFive, userMoves))
             {
-                sortAndPrintChartFive(topFive);
+                RankList.Print(topFive);
             }
             else
             {

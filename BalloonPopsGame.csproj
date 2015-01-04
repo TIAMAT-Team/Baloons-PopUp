@@ -45,8 +45,7 @@
   <ItemGroup>
     <Compile Include="BalloonsField.cs" />
     <Compile Include="baloni.cs" />
-    <Compile Include="klasacia.cs" />
-    <Compile Include="StringExtensions.cs" />
+    <Compile Include="RankList.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
