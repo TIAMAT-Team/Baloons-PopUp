@@ -6,8 +6,6 @@ namespace BalloonPopsGame
 {
     class baloni
     {
-
-
         static void checkLeft(byte[,] matrix, int row, int column, int searchedItem)
         {
             int newRow = row;
@@ -159,11 +157,11 @@ namespace BalloonPopsGame
             string userInput = null;
             int userMoves = 0;
 
-            while (userInput != "EXIT")
+            do
             {
-                Console.WriteLine("Enter a row and column: ");
-                userInput = Console.ReadLine();
-                userInput = userInput.ToUpper().Trim();
+                userInput = ReadUserInput();
+
+
 
                 switch (userInput)
                 {
@@ -178,57 +176,70 @@ namespace BalloonPopsGame
                         sortAndPrintChartFive(topFive);
                         break;
 
+                    case "EXIT":
+                        Console.WriteLine("Good Bye! ");
+                        break;
+
                     default:
-                        if ((userInput.Length == 3) && (userInput[0] >= '0' && userInput[0] <= '9') && (userInput[2] >= '0' && userInput[2] <= '9') && (userInput[1] == ' ' || userInput[1] == '.' || userInput[1] == ','))
+
+                        int userRow, userColumn;
+                        if ((userInput.Length == 3) && (userInput[0] >= '0' && userInput[0] <= '9' && userInput[0] <= '4') && (userInput[2] >= '0' && userInput[2] <= '9') && (userInput[1] == ' ' || userInput[1] == '.' || userInput[1] == ','))
                         {
-                            int userRow, userColumn;
+
                             userRow = int.Parse(userInput[0].ToString());
-                            if (userRow > 4)
-                            {
-                                Console.WriteLine("Wrong input ! Try Again ! ");
-                                continue;
-                            }
                             userColumn = int.Parse(userInput[2].ToString());
 
-                            if (isBalloonPopped(matrix, userRow, userColumn))
-                            {
-                                Console.WriteLine("cannot pop missing ballon!");
-                                continue;
-                            }
-                            else
-                            {
-                                popBalloons(matrix, userRow, userColumn);
-                            }
-
-                            userMoves++;
-                            if (doit(matrix))
-                            {
-                                Console.WriteLine("Gratz ! You completed it in {0} moves.", userMoves);
-                                if (topFive.signIfSkilled(userMoves))
-                                {
-                                    sortAndPrintChartFive(topFive);
-                                }
-                                else
-                                {
-                                    Console.WriteLine("I am sorry you are not skillful enough for TopFive chart!");
-                                }
-                                matrix = BalloonsField.GenerateRandomField(5, 10);
-                                userMoves = 0;
-                            }
-                            DrawMatrix(matrix);
-                            break;
                         }
                         else
                         {
                             Console.WriteLine("Wrong input ! Try Again ! ");
-                            break;
+                            continue;
                         }
+
+
+                        if (isBalloonPopped(matrix, userRow, userColumn))
+                        {
+                            Console.WriteLine("cannot pop missing ballon!");
+                            continue;
+                        }
+                        else
+                        {
+                            popBalloons(matrix, userRow, userColumn);
+                        }
+
+                        userMoves++;
+                        if (doit(matrix))
+                        {
+                            Console.WriteLine("Gratz ! You completed it in {0} moves.", userMoves);
+                            if (topFive.signIfSkilled(userMoves))
+                            {
+                                sortAndPrintChartFive(topFive);
+                            }
+                            else
+                            {
+                                Console.WriteLine("I am sorry you are not skillful enough for TopFive chart!");
+                            }
+                            matrix = BalloonsField.GenerateRandomField(5, 10);
+                            userMoves = 0;
+                        }
+                        DrawMatrix(matrix);
+                        break;
+
 
 
                 }
             }
-            Console.WriteLine("Good Bye! ");
+            while (userInput != "EXIT");
 
+        }
+
+        private static string ReadUserInput()
+        {
+            Console.WriteLine("Enter a row and column: ");
+            string userInput = null;
+            userInput = Console.ReadLine();
+            userInput = userInput.ToUpper().Trim();
+            return userInput;
         }
 
         private static void DrawMatrix(byte[,] matrix)
