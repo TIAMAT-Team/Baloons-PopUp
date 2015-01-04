@@ -44,7 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BalloonsField.cs" />
-    <Compile Include="baloni.cs" />
+    <Compile Include="Balloons.cs" />
     <Compile Include="RankList.cs" />
   </ItemGroup>
   <ItemGroup>

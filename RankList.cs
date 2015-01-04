@@ -5,18 +5,13 @@ namespace BalloonPopsGame
 
     public class RankList : IComparable<RankList>
     {
-        public int value;
-        public string name;
+        private int value;
+        private string name;
 
         public RankList(int value, string name)
         {
             this.value = value;
             this.name = name;
-        }
-
-        public int CompareTo(RankList other)
-        {
-            return value.CompareTo(other.value);
         }
 
         public static void Print(string[,] tableToSort)
@@ -32,7 +27,6 @@ namespace BalloonPopsGame
                 }
 
                 rankList.Add(new RankList(int.Parse(tableToSort[i, 0]), tableToSort[i, 1]));
-
             }
 
             rankList.Sort();
@@ -62,6 +56,7 @@ namespace BalloonPopsGame
                     break;
                 }
             }
+
             if (skilled == false)
             {
                 for (int i = 0; i < 5; i++)
@@ -73,6 +68,7 @@ namespace BalloonPopsGame
                     }
                 }
             }
+
             if (points < worstMoves && skilled == false)
             {
                 Console.WriteLine("Type in your name.");
@@ -81,7 +77,13 @@ namespace BalloonPopsGame
                 rank[worstMovesRankPosition, 1] = tempUserName;
                 skilled = true;
             }
+
             return skilled;
+        }
+
+        public int CompareTo(RankList other)
+        {
+            return this.value.CompareTo(other.value);
         }
     }
 }

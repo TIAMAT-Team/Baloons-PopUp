@@ -15,10 +15,11 @@
             {
                 for (byte column = 0; column < columns; column++)
                 {
-                    byte tempByte = (byte)randNumber.Next(1, balloonTypesCount+1);
+                    byte tempByte = (byte)randNumber.Next(1, balloonTypesCount + 1);
                     field[row, column] = tempByte;
                 }
             }
+
             return field;
         }
     }

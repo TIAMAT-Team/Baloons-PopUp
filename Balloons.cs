@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using BalloonPopsGame;
-
-namespace BalloonPopsGame
+﻿namespace BalloonPopsGame
 {
-    class baloni
+    using System;
+    using System.Collections.Generic;
+
+    public class Balloons
     {
         static void checkLeft(byte[,] matrix, int row, int column, int searchedItem)
         {
@@ -21,8 +20,8 @@ namespace BalloonPopsGame
             }
             catch (IndexOutOfRangeException)
             { return; }
-
         }
+
         static void checkRight(byte[,] matrix, int row, int column, int searchedItem)
         {
             int newRow = row;
@@ -38,8 +37,8 @@ namespace BalloonPopsGame
             }
             catch (IndexOutOfRangeException)
             { return; }
-
         }
+
         static void checkUp(byte[,] matrix, int row, int column, int searchedItem)
         {
             int newRow = row + 1;
@@ -56,6 +55,7 @@ namespace BalloonPopsGame
             catch (IndexOutOfRangeException)
             { return; }
         }
+
         static void checkDown(byte[,] matrix, int row, int column, int searchedItem)
         {
             int newRow = row - 1;
@@ -71,7 +71,6 @@ namespace BalloonPopsGame
             }
             catch (IndexOutOfRangeException)
             { return; }
-
         }
 
         static bool isBalloonPopped(byte[,] matrix, int row, int col)
@@ -88,6 +87,7 @@ namespace BalloonPopsGame
             checkUp(matrix, row, col, searchedTarget);
             checkDown(matrix, row, col, searchedTarget);
         }
+
         static bool isWinner(byte[,] matrix)
         {
             for (int r = 0; r < matrix.GetLength(0); r++)
@@ -100,12 +100,12 @@ namespace BalloonPopsGame
                     }
                 }
             }
+
             return true;
         }
 
         static void NormalizeBalloonField(byte[,] matrix)
         {
-
             Stack<byte> stek = new Stack<byte>();
             int columnLenght = matrix.GetLength(0);
             for (int j = 0; j < matrix.GetLength(1); j++)
@@ -117,7 +117,8 @@ namespace BalloonPopsGame
                         stek.Push(matrix[i, j]);
                     }
                 }
-                for (int k = columnLenght - 1; (k >= 0); k--)
+
+                for (int k = columnLenght - 1; k >= 0; k--)
                 {
                     try
                     {
@@ -129,7 +130,6 @@ namespace BalloonPopsGame
                     }
                 }
             }
-
         }
 
         static void Main(string[] args)
@@ -145,15 +145,12 @@ namespace BalloonPopsGame
             do
             {
                 userInput = ReadUserInput();
-
-
-
+                
                 switch (userInput)
                 {
                     case "RESTART":
                         matrix = BalloonsField.GenerateRandomField(5, 10);
                         DrawMatrix(matrix);
-
                         userMoves = 0;
                         break;
 
@@ -166,21 +163,17 @@ namespace BalloonPopsGame
                         break;
 
                     default:
-
                         int userRow, userColumn;
                         if (isValidInput(userInput))
                         {
-
                             userRow = int.Parse(userInput[0].ToString());
                             userColumn = int.Parse(userInput[2].ToString());
-
                         }
                         else
                         {
                             Console.WriteLine("Wrong input ! Try Again ! ");
                             continue;
                         }
-
 
                         if (isBalloonPopped(matrix, userRow, userColumn))
                         {
@@ -194,15 +187,14 @@ namespace BalloonPopsGame
 
                         userMoves++;
                         NormalizeBalloonField(matrix);
+                        
                         if (isWinner(matrix))
                         {
                             GameOver(topFive, ref matrix, ref userMoves);
                         }
+
                         DrawMatrix(matrix);
                         break;
-
-
-
                 }
             }
             while (userInput != "EXIT");
@@ -247,7 +239,7 @@ namespace BalloonPopsGame
             }
 
             Console.Write("\n   ");
-            for (byte column = 0; column < matrix.GetLongLength(1) * 2 + 1; column++)
+            for (byte column = 0; column < (matrix.GetLongLength(1) * 2) + 1; column++)
             {
                 Console.Write("-");
             }
@@ -271,11 +263,12 @@ namespace BalloonPopsGame
                 Console.WriteLine();
             }
 
-            Console.Write("   ");     //some trinket stuff again
-            for (byte column = 0; column < matrix.GetLongLength(1) * 2 + 1; column++)
+            Console.Write("   "); 
+            for (byte column = 0; column < (matrix.GetLongLength(1) * 2) + 1; column++)
             {
                 Console.Write("-");
             }
+
             Console.WriteLine();
         }
     }
