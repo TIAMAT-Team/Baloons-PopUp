@@ -1,25 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using ConsoleApplication1;
+using BalloonPopsGame;
 
 namespace BalloonPopsGame
 {
     class baloni
     {
-        static byte[,] gen(byte rows, byte columns)
-        {
-            byte[,] temp = new byte[rows, columns];
-            Random randNumber = new Random();
-            for (byte row = 0; row < rows; row++)
-            {
-                for (byte column = 0; column < columns; column++)
-                {
-                    byte tempByte = (byte)randNumber.Next(1, 5);
-                    temp[row, column] = tempByte;
-                }
-            }
-            return temp;
-        }
+
 
         static void checkLeft(byte[,] matrix, int row, int column, int searchedItem)
         {
@@ -165,7 +152,7 @@ namespace BalloonPopsGame
         static void Main(string[] args)
         {
             string[,] topFive = new string[5, 2];
-            byte[,] matrix = gen(5, 10);
+            byte[,] matrix = BalloonsField.GenerateRandomField(5, 10);
 
             DrawMatrix(matrix);
 
@@ -181,7 +168,7 @@ namespace BalloonPopsGame
                 switch (userInput)
                 {
                     case "RESTART":
-                        matrix = gen(5, 10);
+                        matrix = BalloonsField.GenerateRandomField(5, 10);
                         DrawMatrix(matrix);
 
                         userMoves = 0;
@@ -225,7 +212,7 @@ namespace BalloonPopsGame
                                 {
                                     Console.WriteLine("I am sorry you are not skillful enough for TopFive chart!");
                                 }
-                                matrix = gen(5, 10);
+                                matrix = BalloonsField.GenerateRandomField(5, 10);
                                 userMoves = 0;
                             }
                             DrawMatrix(matrix);
