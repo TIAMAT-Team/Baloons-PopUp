@@ -88,10 +88,24 @@ namespace BalloonPopsGame
             checkUp(matrix, row, col, searchedTarget);
             checkDown(matrix, row, col, searchedTarget);
         }
-
-        static bool doit(byte[,] matrix)
+        static bool isWinner(byte[,] matrix)
         {
-            bool isWinner = true;
+            for (int r = 0; r < matrix.GetLength(0); r++)
+            {
+                for (int c = 0; c < matrix.GetLength(1); c++)
+                {
+                    if (matrix[r, c] != 0)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        static void NormalizeBalloonField(byte[,] matrix)
+        {
+
             Stack<byte> stek = new Stack<byte>();
             int columnLenght = matrix.GetLength(0);
             for (int j = 0; j < matrix.GetLength(1); j++)
@@ -100,7 +114,6 @@ namespace BalloonPopsGame
                 {
                     if (matrix[i, j] != 0)
                     {
-                        isWinner = false;
                         stek.Push(matrix[i, j]);
                     }
                 }
@@ -116,7 +129,7 @@ namespace BalloonPopsGame
                     }
                 }
             }
-            return isWinner;
+
         }
 
         static void sortAndPrintChartFive(string[,] tableToSort)
@@ -183,7 +196,7 @@ namespace BalloonPopsGame
                     default:
 
                         int userRow, userColumn;
-                        if ((userInput.Length == 3) && (userInput[0] >= '0' && userInput[0] <= '9' && userInput[0] <= '4') && (userInput[2] >= '0' && userInput[2] <= '9') && (userInput[1] == ' ' || userInput[1] == '.' || userInput[1] == ','))
+                        if (isValidInput(userInput))
                         {
 
                             userRow = int.Parse(userInput[0].ToString());
@@ -208,19 +221,10 @@ namespace BalloonPopsGame
                         }
 
                         userMoves++;
-                        if (doit(matrix))
+                        NormalizeBalloonField(matrix);
+                        if (isWinner(matrix))
                         {
-                            Console.WriteLine("Gratz ! You completed it in {0} moves.", userMoves);
-                            if (topFive.signIfSkilled(userMoves))
-                            {
-                                sortAndPrintChartFive(topFive);
-                            }
-                            else
-                            {
-                                Console.WriteLine("I am sorry you are not skillful enough for TopFive chart!");
-                            }
-                            matrix = BalloonsField.GenerateRandomField(5, 10);
-                            userMoves = 0;
+                            GameOver(topFive, ref matrix, ref userMoves);
                         }
                         DrawMatrix(matrix);
                         break;
@@ -231,6 +235,26 @@ namespace BalloonPopsGame
             }
             while (userInput != "EXIT");
 
+        }
+
+        private static bool isValidInput(string userInput)
+        {
+            return (userInput.Length == 3) && (userInput[0] >= '0' && userInput[0] <= '9' && userInput[0] <= '4') && (userInput[2] >= '0' && userInput[2] <= '9') && (userInput[1] == ' ' || userInput[1] == '.' || userInput[1] == ',');
+        }
+
+        private static void GameOver(string[,] topFive, ref byte[,] matrix, ref int userMoves)
+        {
+            Console.WriteLine("Gratz ! You completed it in {0} moves.", userMoves);
+            if (topFive.signIfSkilled(userMoves))
+            {
+                sortAndPrintChartFive(topFive);
+            }
+            else
+            {
+                Console.WriteLine("I am sorry you are not skillful enough for TopFive chart!");
+            }
+            matrix = BalloonsField.GenerateRandomField(5, 10);
+            userMoves = 0;
         }
 
         private static string ReadUserInput()
