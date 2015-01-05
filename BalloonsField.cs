@@ -1,4 +1,6 @@
-﻿namespace BalloonPopsGame
+﻿using System.Text;
+
+namespace BalloonPopsGame
 {
     using System;
     using System.Collections.Generic;
@@ -107,44 +109,49 @@
 
         public void Draw()
         {
-            Console.Write("    ");
+            StringBuilder sb = new StringBuilder();
+            sb.Append("    ");
+
             for (byte column = 0; column < this.columns; column++)
             {
-                Console.Write(column + " ");
+                sb.Append(column + " ");
             }
 
-            Console.Write("\n   ");
+            sb.Append("\n   ");
+
             for (byte column = 0; column < (this.columns * 2) + 1; column++)
             {
-                Console.Write("-");
+                sb.Append("-");
             }
 
-            Console.WriteLine();
+            sb.AppendLine();
 
             for (byte i = 0; i < this.rows; i++)
             {
-                Console.Write(i + " | ");
+                sb.Append(i + " | ");
                 for (byte j = 0; j < this.columns; j++)
                 {
                     if (this[i, j] == 0)
                     {
-                        Console.Write("  ");
+                        sb.Append("  ");
                         continue;
                     }
 
-                    Console.Write(this[i, j] + " ");
+                    sb.Append(this[i, j] + " ");
                 }
-                Console.Write("| ");
-                Console.WriteLine();
+                sb.Append("| ");
+                sb.AppendLine();
             }
 
-            Console.Write("   ");
+            sb.Append("    ");
+
             for (byte column = 0; column < (this.columns * 2) + 1; column++)
             {
-                Console.Write("-");
+                sb.Append("-");
             }
 
-            Console.WriteLine();
+            sb.AppendLine();
+            Console.Write(sb.ToString());
         }
     }
 }

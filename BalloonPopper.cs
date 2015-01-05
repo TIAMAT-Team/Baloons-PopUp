@@ -30,10 +30,8 @@
                     matrix[newRow, newColumn] = 0;
                     CheckLeft(matrix, newRow, newColumn, searchedItem);
                 }
-                else return;
             }
-            catch (IndexOutOfRangeException)
-            { return; }
+            catch (IndexOutOfRangeException) {  }
         }
 
         private static void CheckRight(BalloonsField matrix, int row, int column, int searchedItem)
@@ -47,10 +45,8 @@
                     matrix[newRow, newColumn] = 0;
                     CheckRight(matrix, newRow, newColumn, searchedItem);
                 }
-                else return;
             }
-            catch (IndexOutOfRangeException)
-            { return; }
+            catch (IndexOutOfRangeException) {  }
         }
 
         private static void CheckUp(BalloonsField matrix, int row, int column, int searchedItem)
@@ -64,10 +60,8 @@
                     matrix[newRow, newColumn] = 0;
                     CheckUp(matrix, newRow, newColumn, searchedItem);
                 }
-                else return;
             }
-            catch (IndexOutOfRangeException)
-            { return; }
+            catch (IndexOutOfRangeException) {  }
         }
 
         private static void CheckDown(BalloonsField matrix, int row, int column, int searchedItem)
@@ -81,10 +75,8 @@
                     matrix[newRow, newColumn] = 0;
                     CheckDown(matrix, newRow, newColumn, searchedItem);
                 }
-                else return;
             }
-            catch (IndexOutOfRangeException)
-            { return; }
+            catch (IndexOutOfRangeException) {  }
         }
     }
 }
