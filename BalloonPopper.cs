@@ -4,12 +4,12 @@
 
     public static class BalloonPopper
     {
-        public static bool IsBalloonPopped(byte[,] matrix, int row, int col)
+        public static bool IsBalloonPopped(BalloonsField matrix, int row, int col)
         {
             return matrix[row, col] == 0;
         }
 
-        public static void PopBalloons(byte[,] matrix, int row, int col)
+        public static void PopBalloons(BalloonsField matrix, int row, int col)
         {
             byte searchedTarget = matrix[row, col];
             matrix[row, col] = 0;
@@ -19,7 +19,7 @@
             CheckDown(matrix, row, col, searchedTarget);
         }
 
-        private static void CheckLeft(byte[,] matrix, int row, int column, int searchedItem)
+        private static void CheckLeft(BalloonsField matrix, int row, int column, int searchedItem)
         {
             int newRow = row;
             int newColumn = column - 1;
@@ -36,7 +36,7 @@
             { return; }
         }
 
-        private static void CheckRight(byte[,] matrix, int row, int column, int searchedItem)
+        private static void CheckRight(BalloonsField matrix, int row, int column, int searchedItem)
         {
             int newRow = row;
             int newColumn = column + 1;
@@ -53,7 +53,7 @@
             { return; }
         }
 
-        private static void CheckUp(byte[,] matrix, int row, int column, int searchedItem)
+        private static void CheckUp(BalloonsField matrix, int row, int column, int searchedItem)
         {
             int newRow = row + 1;
             int newColumn = column;
@@ -70,7 +70,7 @@
             { return; }
         }
 
-        private static void CheckDown(byte[,] matrix, int row, int column, int searchedItem)
+        private static void CheckDown(BalloonsField matrix, int row, int column, int searchedItem)
         {
             int newRow = row - 1;
             int newColumn = column;
