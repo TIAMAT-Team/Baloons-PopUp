@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BalloonPopper.cs" />
     <Compile Include="BalloonsField.cs" />
     <Compile Include="Balloons.cs" />
     <Compile Include="RankList.cs" />

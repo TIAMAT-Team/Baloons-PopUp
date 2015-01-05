@@ -5,89 +5,6 @@
 
     public class Balloons
     {
-        static void checkLeft(byte[,] matrix, int row, int column, int searchedItem)
-        {
-            int newRow = row;
-            int newColumn = column - 1;
-            try
-            {
-                if (matrix[newRow, newColumn] == searchedItem)
-                {
-                    matrix[newRow, newColumn] = 0;
-                    checkLeft(matrix, newRow, newColumn, searchedItem);
-                }
-                else return;
-            }
-            catch (IndexOutOfRangeException)
-            { return; }
-        }
-
-        static void checkRight(byte[,] matrix, int row, int column, int searchedItem)
-        {
-            int newRow = row;
-            int newColumn = column + 1;
-            try
-            {
-                if (matrix[newRow, newColumn] == searchedItem)
-                {
-                    matrix[newRow, newColumn] = 0;
-                    checkRight(matrix, newRow, newColumn, searchedItem);
-                }
-                else return;
-            }
-            catch (IndexOutOfRangeException)
-            { return; }
-        }
-
-        static void checkUp(byte[,] matrix, int row, int column, int searchedItem)
-        {
-            int newRow = row + 1;
-            int newColumn = column;
-            try
-            {
-                if (matrix[newRow, newColumn] == searchedItem)
-                {
-                    matrix[newRow, newColumn] = 0;
-                    checkUp(matrix, newRow, newColumn, searchedItem);
-                }
-                else return;
-            }
-            catch (IndexOutOfRangeException)
-            { return; }
-        }
-
-        static void checkDown(byte[,] matrix, int row, int column, int searchedItem)
-        {
-            int newRow = row - 1;
-            int newColumn = column;
-            try
-            {
-                if (matrix[newRow, newColumn] == searchedItem)
-                {
-                    matrix[newRow, newColumn] = 0;
-                    checkDown(matrix, newRow, newColumn, searchedItem);
-                }
-                else return;
-            }
-            catch (IndexOutOfRangeException)
-            { return; }
-        }
-
-        static bool isBalloonPopped(byte[,] matrix, int row, int col)
-        {
-            return matrix[row, col] == 0;
-        }
-
-        private static void popBalloons(byte[,] matrix, int row, int col)
-        {
-            byte searchedTarget = matrix[row, col];
-            matrix[row, col] = 0;
-            checkLeft(matrix, row, col, searchedTarget);
-            checkRight(matrix, row, col, searchedTarget);
-            checkUp(matrix, row, col, searchedTarget);
-            checkDown(matrix, row, col, searchedTarget);
-        }
-
         static bool isWinner(byte[,] matrix)
         {
             for (int r = 0; r < matrix.GetLength(0); r++)
@@ -175,14 +92,14 @@
                             continue;
                         }
 
-                        if (isBalloonPopped(matrix, userRow, userColumn))
+                        if (BalloonPopper.IsBalloonPopped(matrix, userRow, userColumn))
                         {
                             Console.WriteLine("cannot pop missing ballon!");
                             continue;
                         }
                         else
                         {
-                            popBalloons(matrix, userRow, userColumn);
+                            BalloonPopper.PopBalloons(matrix, userRow, userColumn);
                         }
 
                         userMoves++;
