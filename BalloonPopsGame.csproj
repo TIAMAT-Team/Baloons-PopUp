@@ -46,6 +46,15 @@
     <Compile Include="BalloonPopper.cs" />
     <Compile Include="BalloonsField.cs" />
     <Compile Include="Balloons.cs" />
+    <Compile Include="Commands\BalloonsPopCommand.cs" />
+    <Compile Include="Commands\CommandInfo.cs" />
+    <Compile Include="Commands\CommandParser.cs" />
+    <Compile Include="Commands\ExitCommand.cs" />
+    <Compile Include="Commands\IBalloonPopsCommand.cs" />
+    <Compile Include="Commands\ICommandInfo.cs" />
+    <Compile Include="Commands\ICommandParser.cs" />
+    <Compile Include="Commands\RestartCommand.cs" />
+    <Compile Include="Commands\TopCommand.cs" />
     <Compile Include="Printers\ConsolePrinter.cs" />
     <Compile Include="Printers\IPrinter.cs" />
     <Compile Include="RankList.cs" />

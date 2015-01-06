@@ -89,7 +89,7 @@
             Console.WriteLine("Gratz ! You completed it in {0} moves.", userMoves);
             if (rankList.SignIfSkilled(rankList, userMoves))
             {
-                printer.PrintRankList(rankList.GetRankList);
+               //TODO: printer.PrintRankList(rankList.GetRankList);
             }
             else
             {

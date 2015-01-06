@@ -1,9 +1,9 @@
-﻿using System.Text;
-
-namespace BalloonPopsGame
+﻿namespace BalloonPopsGame
 {
     using System;
     using System.Collections.Generic;
+    using System.Text;
+
     public class BalloonsField
     {
         private static readonly int balloonTypesCount = 4;
@@ -111,52 +111,5 @@ namespace BalloonPopsGame
                 }
             }
         }
-
-        //public void Draw()
-        //{
-        //    StringBuilder sb = new StringBuilder();
-        //    sb.Append("    ");
-
-        //    for (byte column = 0; column < this.columns; column++)
-        //    {
-        //        sb.Append(column + " ");
-        //    }
-
-        //    sb.Append("\n   ");
-
-        //    for (byte column = 0; column < (this.columns * 2) + 1; column++)
-        //    {
-        //        sb.Append("-");
-        //    }
-
-        //    sb.AppendLine();
-
-        //    for (byte i = 0; i < this.rows; i++)
-        //    {
-        //        sb.Append(i + " | ");
-        //        for (byte j = 0; j < this.columns; j++)
-        //        {
-        //            if (this[i, j] == 0)
-        //            {
-        //                sb.Append("  ");
-        //                continue;
-        //            }
-
-        //            sb.Append(this[i, j] + " ");
-        //        }
-        //        sb.Append("| ");
-        //        sb.AppendLine();
-        //    }
-
-        //    sb.Append("    ");
-
-        //    for (byte column = 0; column < (this.columns * 2) + 1; column++)
-        //    {
-        //        sb.Append("-");
-        //    }
-
-        //    sb.AppendLine();
-        //    Console.Write(sb.ToString());
-        //}
     }
 }
