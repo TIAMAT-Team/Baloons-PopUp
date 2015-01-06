@@ -9,7 +9,9 @@
     {
         public ICommandInfo Parse(string input)
         {
-            throw new NotImplementedException();
+          var splittedInput = input.Split(new char[]{' ', '.', ','});
+            var arguments = splittedInput.Skip(1).Take(splittedInput.Length - 1);
+            return new CommandInfo(splittedInput[0], arguments);
         }
     }
 }

@@ -5,17 +5,34 @@
     using System.Linq;
     using System.Text;
 
-public    class CommandInfo :ICommandInfo
+    public class CommandInfo : ICommandInfo
     {
+        private string commandName;
+        private IEnumerable<string> arguments;
+
+        public CommandInfo(string commandName, IEnumerable<string> arguments)
+        {
+            this.CommandName = commandName;
+            if (null == arguments)
+            {
+                this.Arguments = new List<string>();
+            }
+            else
+            {
+                this.Arguments = arguments;
+            }
+        }
+
+
         public string CommandName
         {
             get
             {
-                throw new NotImplementedException();
+                return this.commandName;
             }
             set
             {
-                throw new NotImplementedException();
+                this.commandName = value;
             }
         }
 
@@ -23,11 +40,11 @@ public    class CommandInfo :ICommandInfo
         {
             get
             {
-                throw new NotImplementedException();
+                return this.arguments;
             }
             set
             {
-                throw new NotImplementedException();
+                this.arguments = value;
             }
         }
     }

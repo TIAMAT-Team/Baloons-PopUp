@@ -81,7 +81,9 @@
 
         private static bool isValidInput(string userInput)
         {
-            return (userInput.Length == 3) && (userInput[0] >= '0' && userInput[0] <= '9' && userInput[0] <= '4') && (userInput[2] >= '0' && userInput[2] <= '9') && (userInput[1] == ' ' || userInput[1] == '.' || userInput[1] == ',');
+            return (userInput.Length == 3) && (userInput[0] >= '0' && userInput[0] <= '9' && userInput[0] <= '4') && 
+                (userInput[2] >= '0' && userInput[2] <= '9') &&
+                (userInput[1] == ' ' || userInput[1] == '.' || userInput[1] == ',');
         }
 
         private static void GameOver(RankList rankList, ref BalloonsField matrix, ref int userMoves)
