@@ -1,5 +1,6 @@
 ﻿namespace BalloonPopsGame
 {
+    using BalloonPopsGame.Commands;
     using BalloonPopsGame.Printers;
     using System;
     using System.Collections.Generic;
@@ -11,16 +12,29 @@
             string[,] topFive = new string[5, 2];
             var matrix = new BalloonsField(5, 10);
             IPrinter printer = new ConsolePrinter();
+            ICommandParser commandParser = new CommandParser();
+            ICommandInfo commandInfo;
+
 
             printer.PrintField(matrix);
             RankList rankList = new RankList();
 
             string userInput = null;
             int userMoves = 0;
-            
-            do
+
+            while (true)
             {
                 userInput = ReadUserInput();
+
+                if (userInput == "EXIT")
+                {
+                    // TODO: run ExitCommand
+                    break;
+                }
+
+                commandInfo = commandParser.Parse(userInput);
+                // Console.WriteLine(commandInfo.CommandName);
+                // Console.WriteLine(String.Join(", ", commandInfo.Arguments));
 
                 switch (userInput)
                 {
@@ -75,13 +89,12 @@
                         break;
                 }
             }
-            while (userInput != "EXIT");
-
         }
 
+        // TODO: remove method
         private static bool isValidInput(string userInput)
         {
-            return (userInput.Length == 3) && (userInput[0] >= '0' && userInput[0] <= '9' && userInput[0] <= '4') && 
+            return (userInput.Length == 3) && (userInput[0] >= '0' && userInput[0] <= '9' && userInput[0] <= '4') &&
                 (userInput[2] >= '0' && userInput[2] <= '9') &&
                 (userInput[1] == ' ' || userInput[1] == '.' || userInput[1] == ',');
         }
@@ -91,7 +104,7 @@
             Console.WriteLine("Gratz ! You completed it in {0} moves.", userMoves);
             if (rankList.SignIfSkilled(rankList, userMoves))
             {
-               //TODO: printer.PrintRankList(rankList.GetRankList);
+                //TODO: printer.PrintRankList(rankList.GetRankList);
             }
             else
             {
