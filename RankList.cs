@@ -13,8 +13,8 @@ namespace BalloonPopsGame
 
         public RankList()
         {
-            this.rankList = new Dictionary<string, int>(MaximumNumberOfTopResults);
-            this.movesCount = 0;
+            this.RankListDictionary = new Dictionary<string, int>(MaximumNumberOfTopResults);
+            this.MovesCount = 0;
         }
 
         public int MovesCount
@@ -25,11 +25,8 @@ namespace BalloonPopsGame
 
         public IDictionary<string, int> RankListDictionary
         {
-            get
-            {
-                return this.rankList;
-            }
-
+            get { return rankList; }
+            set { rankList = value; }
         }
 
         public bool SignIfSkilled(RankList rank)

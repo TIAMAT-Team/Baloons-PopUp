@@ -9,12 +9,10 @@
     {
         static void Main(string[] args)
         {
-            string[,] topFive = new string[5, 2];
             var matrix = new BalloonsField(5, 10);
             IPrinter printer = new ConsolePrinter();
             ICommandParser commandParser = new CommandParser();
             ICommandInfo commandInfo;
-
 
             RankList rankList = new RankList();
 
@@ -39,11 +37,10 @@
                 switch (userInput)
                 {
                     case "RESTART":
-                       
+
                         break;
 
                     case "TOP":
-                            
                         printer.PrintRankList(rankList.RankListDictionary);
                         break;
 
@@ -74,12 +71,12 @@
                             BalloonPopper.PopBalloons(matrix, userRow, userColumn);
                         }
 
-                       // rankList.MovesCount++;
+                        rankList.MovesCount++;
                         matrix.NormalizeBalloonField();
 
                         if (matrix.isWinner())
                         {
-                      //      GameOver(rankList, ref matrix, rankList.MovesCount);
+                            GameOver(rankList, ref matrix);
                         }
 
                         printer.PrintField(matrix);
@@ -96,19 +93,18 @@
                 (userInput[1] == ' ' || userInput[1] == '.' || userInput[1] == ',');
         }
 
-        private static void GameOver(RankList rankList, ref BalloonsField matrix, ref int userMoves)
+        private static void GameOver(RankList rankList, ref BalloonsField matrix)
         {
-            Console.WriteLine("Gratz ! You completed it in {0} moves.", userMoves);
+            Console.WriteLine("Gratz ! You completed it in {0} moves.", rankList.MovesCount);
             if (rankList.SignIfSkilled(rankList))
             {
-                //TODO: printer.PrintRankList(rankList.GetRankList);
+                //printer.PrintRankList(rankList.RankListDictionary);
             }
             else
             {
                 Console.WriteLine("I am sorry you are not skillful enough for TopFive chart!");
             }
             matrix = new BalloonsField(5, 10);
-            userMoves = 0;
         }
 
         private static string ReadUserInput()
@@ -119,7 +115,5 @@
             userInput = userInput.ToUpper().Trim();
             return userInput;
         }
-
-
     }
 }

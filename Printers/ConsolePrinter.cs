@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections;
-using System.Globalization;
-using System.Linq;
 using System.Text;
 
 namespace BalloonPopsGame.Printers
@@ -71,13 +68,13 @@ namespace BalloonPopsGame.Printers
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("Rank List:");
 
-            
+
             if (rankList.Count != 0)
             {
                 int counter = 1;
                 foreach (var item in rankList)
                 {
-                    sb.AppendFormat("{0}. {1}", counter, item);
+                    sb.AppendFormat("{0}. {1} --> {2}", counter, item.Key, item.Value);
                 }
                 Console.WriteLine(sb.ToString());
             }
