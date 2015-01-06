@@ -6,9 +6,15 @@
     using System.Text;
     using BalloonPopsGame.Printers;
 
+
     public class RestartCommand : IBalloonPopsCommand
     {
         private IPrinter printer;
+
+        public RestartCommand(IPrinter printer)
+        {
+            this.printer = printer;
+        }
 
         public void Execute(string[] arguments)
         {

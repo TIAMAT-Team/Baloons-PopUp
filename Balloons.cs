@@ -4,15 +4,20 @@
     using BalloonPopsGame.Printers;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class Balloons
     {
         static void Main(string[] args)
         {
+            string[,] topFive = new string[5, 2];
             var matrix = new BalloonsField(5, 10);
             IPrinter printer = new ConsolePrinter();
             ICommandParser commandParser = new CommandParser();
             ICommandInfo commandInfo;
+            ICommandFactory commandFactory = new CommandFactory(printer);
+
+
 
             RankList rankList = new RankList();
 
@@ -31,16 +36,15 @@
                 }
 
                 commandInfo = commandParser.Parse(userInput);
-                // Console.WriteLine(commandInfo.CommandName);
-                // Console.WriteLine(String.Join(", ", commandInfo.Arguments));
+                IBalloonPopsCommand command = commandFactory.CreateCommand(commandInfo);
+
+                command.Execute(commandInfo.Arguments.ToArray());
 
                 switch (userInput)
                 {
-                    case "RESTART":
-
-                        break;
 
                     case "TOP":
+
                         printer.PrintRankList(rankList.RankListDictionary);
                         break;
 
@@ -76,7 +80,7 @@
 
                         if (matrix.isWinner())
                         {
-                            GameOver(rankList, ref matrix);
+                            //      GameOver(rankList, ref matrix, rankList.MovesCount);
                         }
 
                         printer.PrintField(matrix);
@@ -93,18 +97,19 @@
                 (userInput[1] == ' ' || userInput[1] == '.' || userInput[1] == ',');
         }
 
-        private static void GameOver(RankList rankList, ref BalloonsField matrix)
+        private static void GameOver(RankList rankList, ref BalloonsField matrix, ref int userMoves)
         {
-            Console.WriteLine("Gratz ! You completed it in {0} moves.", rankList.MovesCount);
+            Console.WriteLine("Gratz ! You completed it in {0} moves.", userMoves);
             if (rankList.SignIfSkilled(rankList))
             {
-                //printer.PrintRankList(rankList.RankListDictionary);
+                //TODO: printer.PrintRankList(rankList.GetRankList);
             }
             else
             {
                 Console.WriteLine("I am sorry you are not skillful enough for TopFive chart!");
             }
             matrix = new BalloonsField(5, 10);
+            userMoves = 0;
         }
 
         private static string ReadUserInput()
@@ -115,5 +120,7 @@
             userInput = userInput.ToUpper().Trim();
             return userInput;
         }
+
+
     }
 }
