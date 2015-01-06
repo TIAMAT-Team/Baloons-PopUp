@@ -63,6 +63,11 @@ namespace BalloonPopsGame
             return field;
         }
 
+        public int[] Size()
+        {
+            return new int[] { this.rows, this.columns };
+        }
+
         public bool isWinner()
         {
             for (int r = 0; r < this.rows; r++)
@@ -107,51 +112,51 @@ namespace BalloonPopsGame
             }
         }
 
-        public void Draw()
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("    ");
+        //public void Draw()
+        //{
+        //    StringBuilder sb = new StringBuilder();
+        //    sb.Append("    ");
 
-            for (byte column = 0; column < this.columns; column++)
-            {
-                sb.Append(column + " ");
-            }
+        //    for (byte column = 0; column < this.columns; column++)
+        //    {
+        //        sb.Append(column + " ");
+        //    }
 
-            sb.Append("\n   ");
+        //    sb.Append("\n   ");
 
-            for (byte column = 0; column < (this.columns * 2) + 1; column++)
-            {
-                sb.Append("-");
-            }
+        //    for (byte column = 0; column < (this.columns * 2) + 1; column++)
+        //    {
+        //        sb.Append("-");
+        //    }
 
-            sb.AppendLine();
+        //    sb.AppendLine();
 
-            for (byte i = 0; i < this.rows; i++)
-            {
-                sb.Append(i + " | ");
-                for (byte j = 0; j < this.columns; j++)
-                {
-                    if (this[i, j] == 0)
-                    {
-                        sb.Append("  ");
-                        continue;
-                    }
+        //    for (byte i = 0; i < this.rows; i++)
+        //    {
+        //        sb.Append(i + " | ");
+        //        for (byte j = 0; j < this.columns; j++)
+        //        {
+        //            if (this[i, j] == 0)
+        //            {
+        //                sb.Append("  ");
+        //                continue;
+        //            }
 
-                    sb.Append(this[i, j] + " ");
-                }
-                sb.Append("| ");
-                sb.AppendLine();
-            }
+        //            sb.Append(this[i, j] + " ");
+        //        }
+        //        sb.Append("| ");
+        //        sb.AppendLine();
+        //    }
 
-            sb.Append("    ");
+        //    sb.Append("    ");
 
-            for (byte column = 0; column < (this.columns * 2) + 1; column++)
-            {
-                sb.Append("-");
-            }
+        //    for (byte column = 0; column < (this.columns * 2) + 1; column++)
+        //    {
+        //        sb.Append("-");
+        //    }
 
-            sb.AppendLine();
-            Console.Write(sb.ToString());
-        }
+        //    sb.AppendLine();
+        //    Console.Write(sb.ToString());
+        //}
     }
 }

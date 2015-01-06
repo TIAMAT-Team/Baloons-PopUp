@@ -46,6 +46,8 @@
     <Compile Include="BalloonPopper.cs" />
     <Compile Include="BalloonsField.cs" />
     <Compile Include="Balloons.cs" />
+    <Compile Include="Printers\ConsolePrinter.cs" />
+    <Compile Include="Printers\IPrinter.cs" />
     <Compile Include="RankList.cs" />
   </ItemGroup>
   <ItemGroup>

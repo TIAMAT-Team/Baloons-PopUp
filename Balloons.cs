@@ -1,5 +1,6 @@
 ﻿namespace BalloonPopsGame
 {
+    using BalloonPopsGame.Printers;
     using System;
     using System.Collections.Generic;
 
@@ -9,8 +10,9 @@
         {
             string[,] topFive = new string[5, 2];
             var matrix = new BalloonsField(5, 10);
+            IPrinter printer = new ConsolePrinter();
 
-            matrix.Draw();
+            printer.PrintField(matrix);
 
             string userInput = null;
             int userMoves = 0;
@@ -23,16 +25,17 @@
                 {
                     case "RESTART":
                         matrix = new BalloonsField(5, 10);
-                        matrix.Draw();
+                        printer.PrintField(matrix);
                         userMoves = 0;
                         break;
 
                     case "TOP":
+                        // TODO: replace with printer.PringMessage(topFive); topfive should be a string from the ranklist class
                         RankList.Print(topFive);
                         break;
 
                     case "EXIT":
-                        Console.WriteLine("Good Bye! ");
+                        printer.PringMessage("Good Bye! ");
                         break;
 
                     default:
@@ -44,13 +47,13 @@
                         }
                         else
                         {
-                            Console.WriteLine("Wrong input ! Try Again ! ");
+                            printer.PringMessage("Wrong input ! Try Again ! ");
                             continue;
                         }
 
                         if (BalloonPopper.IsBalloonPopped(matrix, userRow, userColumn))
                         {
-                            Console.WriteLine("cannot pop missing ballon!");
+                            printer.PringMessage("cannot pop missing ballon!");
                             continue;
                         }
                         else
@@ -66,7 +69,7 @@
                             GameOver(topFive, ref matrix, ref userMoves);
                         }
 
-                        matrix.Draw();
+                        printer.PrintField(matrix);
                         break;
                 }
             }
