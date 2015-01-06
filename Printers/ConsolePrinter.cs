@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -64,9 +66,26 @@ namespace BalloonPopsGame.Printers
         }
 
 
-        public void PrintRankList(System.Collections.ICollection rankList)
+        public void PrintRankList(IDictionary<string, int> rankList)
         {
-            // TODO: throw new NotImplementedException();
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("Rank List:");
+
+            
+            if (rankList.Count != 0)
+            {
+                int counter = 1;
+                foreach (var item in rankList)
+                {
+                    sb.AppendFormat("{0}. {1}", counter, item);
+                }
+                Console.WriteLine(sb.ToString());
+            }
+            else
+            {
+                sb.AppendLine("The Rank List is Still Empty!");
+                Console.WriteLine(sb.ToString());
+            }
         }
     }
 }

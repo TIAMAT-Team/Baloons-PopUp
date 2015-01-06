@@ -12,6 +12,6 @@ namespace BalloonPopsGame.Printers
 
         void PringMessage(string message);
 
-        void PrintRankList(ICollection rankList);
+        void PrintRankList(IDictionary<string, int> rankList);
     }
 }

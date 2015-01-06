@@ -2,88 +2,61 @@ namespace BalloonPopsGame
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
-    public class RankList : IComparable<RankList>
+    public class RankList
     {
-        private int value;
-        private string name;
+        private const int MaximumNumberOfTopResults = 5;
 
-        public RankList(int value, string name)
+        private IDictionary<string, int> rankList;
+
+        public RankList()
         {
-            this.value = value;
-            this.name = name;
+            this.rankList = new Dictionary<string, int>(MaximumNumberOfTopResults);
         }
 
-        public static void Print(string[,] tableToSort)
+
+        public IDictionary<string, int> GetRankList
         {
-
-            List<RankList> rankList = new List<RankList>();
-
-            for (int i = 0; i < 5; ++i)
+            get
             {
-                if (tableToSort[i, 0] == null)
-                {
-                    break;
-                }
-
-                rankList.Add(new RankList(int.Parse(tableToSort[i, 0]), tableToSort[i, 1]));
+                return this.rankList;
             }
 
-            rankList.Sort();
-            Console.WriteLine("---------TOP FIVE CHART-----------");
-            for (int i = 0; i < rankList.Count; ++i)
-            {
-                RankList slot = rankList[i];
-                Console.WriteLine("{2}.   {0} with {1} moves.", slot.name, slot.value, i + 1);
-            }
-            Console.WriteLine("----------------------------------");
         }
 
-        public static bool SignIfSkilled(string[,] rank, int points)
+        public bool SignIfSkilled(RankList rank, int points)
         {
-            bool skilled = false;
-            int worstMoves = 0;
-            int worstMovesRankPosition = 0;
-            for (int i = 0; i < 5; i++)
-            {
-                if (rank[i, 0] == null)
-                {
-                    Console.WriteLine("Type in your name.");
-                    string tempUserName = Console.ReadLine();
-                    rank[i, 0] = points.ToString();
-                    rank[i, 1] = tempUserName;
-                    skilled = true;
-                    break;
-                }
-            }
+            IDictionary<string, int> rankListDictionary = rank.GetRankList;
 
-            if (skilled == false)
+            if (rankListDictionary.Values.Count != 0 && rankListDictionary.Values.Count <= MaximumNumberOfTopResults)
             {
-                for (int i = 0; i < 5; i++)
+                var moves = rankListDictionary.Values;
+
+                if (rankListDictionary.Values.Count == 5)
                 {
-                    if (int.Parse(rank[i, 0]) > worstMoves)
+                    if (points >= moves.Min())
                     {
-                        worstMovesRankPosition = i;
-                        worstMoves = int.Parse(rank[i, 0]);
+                        var itemToBeRemoved = rankListDictionary.First(move => move.Value == moves.Min());
+                        rankListDictionary.Remove(itemToBeRemoved.Key);
+                        Console.WriteLine("Type in your name.");
+                        string userName = Console.ReadLine();
+                        rankListDictionary.Add(userName, points);
+
+                        return true;
                     }
                 }
             }
-
-            if (points < worstMoves && skilled == false)
+            else
             {
                 Console.WriteLine("Type in your name.");
-                string tempUserName = Console.ReadLine();
-                rank[worstMovesRankPosition, 0] = points.ToString();
-                rank[worstMovesRankPosition, 1] = tempUserName;
-                skilled = true;
+                string userName = Console.ReadLine();
+                rankListDictionary.Add(userName, points);
+
+                return true;
             }
 
-            return skilled;
-        }
-
-        public int CompareTo(RankList other)
-        {
-            return this.value.CompareTo(other.value);
+            return false;
         }
     }
 }

@@ -13,6 +13,7 @@
             IPrinter printer = new ConsolePrinter();
 
             printer.PrintField(matrix);
+            RankList rankList = new RankList();
 
             string userInput = null;
             int userMoves = 0;
@@ -26,12 +27,13 @@
                     case "RESTART":
                         matrix = new BalloonsField(5, 10);
                         printer.PrintField(matrix);
+                        rankList = new RankList();
                         userMoves = 0;
                         break;
 
                     case "TOP":
                         // TODO: replace with printer.PringMessage(topFive); topfive should be a string from the ranklist class
-                        RankList.Print(topFive);
+                        printer.PrintRankList(rankList.GetRankList);
                         break;
 
                     case "EXIT":
@@ -66,7 +68,7 @@
 
                         if (matrix.isWinner())
                         {
-                            GameOver(topFive, ref matrix, ref userMoves);
+                            GameOver(rankList, ref matrix, ref userMoves);
                         }
 
                         printer.PrintField(matrix);
@@ -82,12 +84,12 @@
             return (userInput.Length == 3) && (userInput[0] >= '0' && userInput[0] <= '9' && userInput[0] <= '4') && (userInput[2] >= '0' && userInput[2] <= '9') && (userInput[1] == ' ' || userInput[1] == '.' || userInput[1] == ',');
         }
 
-        private static void GameOver(string[,] topFive, ref BalloonsField matrix, ref int userMoves)
+        private static void GameOver(RankList rankList, ref BalloonsField matrix, ref int userMoves)
         {
             Console.WriteLine("Gratz ! You completed it in {0} moves.", userMoves);
-            if (RankList.SignIfSkilled(topFive, userMoves))
+            if (rankList.SignIfSkilled(rankList, userMoves))
             {
-                RankList.Print(topFive);
+                printer.PrintRankList(rankList.GetRankList);
             }
             else
             {
