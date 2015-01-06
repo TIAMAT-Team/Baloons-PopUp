@@ -62,5 +62,11 @@ namespace BalloonPopsGame.Printers
         {
             Console.WriteLine(message);
         }
+
+
+        public void PrintRankList(System.Collections.ICollection rankList)
+        {
+            // TODO: throw new NotImplementedException();
+        }
     }
 }

@@ -16,7 +16,7 @@
 
             string userInput = null;
             int userMoves = 0;
-
+            
             do
             {
                 userInput = ReadUserInput();
