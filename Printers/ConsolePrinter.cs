@@ -62,12 +62,10 @@ namespace BalloonPopsGame.Printers
             Console.WriteLine(message);
         }
 
-
         public void PrintRankList(IDictionary<string, int> rankList)
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("Rank List:");
-
 
             if (rankList.Count != 0)
             {
