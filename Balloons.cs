@@ -16,11 +16,11 @@
             ICommandInfo commandInfo;
 
 
-            printer.PrintField(matrix);
             RankList rankList = new RankList();
 
+            printer.PrintField(matrix);
+
             string userInput = null;
-            int userMoves = 0;
 
             while (true)
             {
@@ -39,10 +39,7 @@
                 switch (userInput)
                 {
                     case "RESTART":
-                        matrix = new BalloonsField(5, 10);
-                        printer.PrintField(matrix);
-                        rankList = new RankList();
-                        userMoves = 0;
+                       
                         break;
 
                     case "TOP":
@@ -77,12 +74,12 @@
                             BalloonPopper.PopBalloons(matrix, userRow, userColumn);
                         }
 
-                        userMoves++;
+                       // rankList.MovesCount++;
                         matrix.NormalizeBalloonField();
 
                         if (matrix.isWinner())
                         {
-                            GameOver(rankList, ref matrix, ref userMoves);
+                      //      GameOver(rankList, ref matrix, rankList.MovesCount);
                         }
 
                         printer.PrintField(matrix);

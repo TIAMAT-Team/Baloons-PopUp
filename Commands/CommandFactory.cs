@@ -9,7 +9,20 @@
     {
         public IBalloonPopsCommand CreateCommand(ICommandInfo commandInfo)
         {
-            throw new NotImplementedException();
+            IBalloonPopsCommand balloonPopsCommand;
+            var commandName = commandInfo.CommandName;
+            var arguments = commandInfo.Arguments;
+
+            if (commandName.StartsWith("RESTART"))
+            {
+                balloonPopsCommand = new RestartCommand();
+            }
+            else
+            {
+                throw new ArgumentException("Invalid command.");
+            }
+
+            return balloonPopsCommand;
         }
     }
 }

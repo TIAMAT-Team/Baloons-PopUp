@@ -5,8 +5,8 @@
     using System.Linq;
     using System.Text;
 
-    interface IBalloonPopsCommand
+    public interface IBalloonPopsCommand
     {
-        
+        void Execute(string[] arguments);
     }
 }

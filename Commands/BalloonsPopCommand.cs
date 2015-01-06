@@ -7,5 +7,9 @@ namespace BalloonPopsGame.Commands
 {
     public class BalloonsPopCommand : IBalloonPopsCommand
     {
+        public void Execute(string[] arguments)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
