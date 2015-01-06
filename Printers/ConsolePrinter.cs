@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BalloonPopsGame.Printers
+﻿namespace BalloonPopsGame.Printers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
     public class ConsolePrinter : IPrinter
     {
 
@@ -67,13 +67,20 @@ namespace BalloonPopsGame.Printers
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("Rank List:");
 
+
             if (rankList.Count != 0)
             {
                 int counter = 1;
-                foreach (var item in rankList)
+
+                var items = from pair in rankList
+                            orderby pair.Value descending
+                            select pair;
+
+                foreach (KeyValuePair<string, int> pair in items)
                 {
-                    sb.AppendFormat("{0}. {1} --> {2}", counter, item.Key, item.Value);
+                    sb.AppendFormat("{0}. {1} --> {2}", counter, pair.Key, pair.Value);
                 }
+
                 Console.WriteLine(sb.ToString());
             }
             else
