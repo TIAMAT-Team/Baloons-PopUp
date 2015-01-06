@@ -29,14 +29,22 @@ namespace BalloonPopsGame
             set { rankList = value; }
         }
 
-        public bool SignIfSkilled(RankList rank)
+       public bool SignIfSkilled(RankList rank)
         {
             int currentMoves = rank.MovesCount;
             IDictionary<string, int> rankListDictionary = rank.RankListDictionary;
 
             if (rankListDictionary.Values.Count != 0)
             {
-                if (rankListDictionary.Values.Count <= MaximumNumberOfTopResults)
+                if (rankListDictionary.Values.Count < MaximumNumberOfTopResults)
+                {
+                    Console.WriteLine("Type in your name.");
+                    string userName = Console.ReadLine();
+                    rankListDictionary.Add(userName, currentMoves);
+
+                    return true;
+                }
+                else
                 {
                     var moves = rankListDictionary.Values;
 
@@ -50,9 +58,8 @@ namespace BalloonPopsGame
 
                         return true;
                     }
+                    return false;
                 }
-                return false;
-
             }
             else
             {

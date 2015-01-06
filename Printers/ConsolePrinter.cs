@@ -73,12 +73,13 @@
                 int counter = 1;
 
                 var items = from pair in rankList
-                            orderby pair.Value descending
+                            orderby pair.Value ascending 
                             select pair;
 
                 foreach (KeyValuePair<string, int> pair in items)
                 {
-                    sb.AppendFormat("{0}. {1} --> {2}", counter, pair.Key, pair.Value);
+                    sb.AppendFormat("{0}. {1} --> {2}\n", counter, pair.Key, pair.Value);
+                    counter++;
                 }
 
                 Console.WriteLine(sb.ToString());
