@@ -4,31 +4,31 @@
 
     public static class BalloonPopper
     {
-        public static bool IsBalloonPopped(byte[,] matrix, int row, int col)
+        public static bool IsBalloonPopped(byte[,] gameBoard, int row, int col)
         {
-            return matrix[row, col] == 0;
+            return gameBoard[row, col] == 0;
         }
 
-        public static void PopBalloons(byte[,] matrix, int row, int col)
+        public static void PopBalloons(byte[,] gameBoard, int row, int col)
         {
-            byte searchedTarget = matrix[row, col];
-            matrix[row, col] = 0;
-            CheckLeft(matrix, row, col, searchedTarget);
-            CheckRight(matrix, row, col, searchedTarget);
-            CheckUp(matrix, row, col, searchedTarget);
-            CheckDown(matrix, row, col, searchedTarget);
+            byte searchedTarget = gameBoard[row, col];
+            gameBoard[row, col] = 0;
+            CheckLeft(gameBoard, row, col, searchedTarget);
+            CheckRight(gameBoard, row, col, searchedTarget);
+            CheckUp(gameBoard, row, col, searchedTarget);
+            CheckDown(gameBoard, row, col, searchedTarget);
         }
 
-        private static void CheckLeft(byte[,] matrix, int row, int column, int searchedItem)
+        private static void CheckLeft(byte[,] gameBoard, int row, int column, int searchedItem)
         {
             int newRow = row;
             int newColumn = column - 1;
             try
             {
-                if (matrix[newRow, newColumn] == searchedItem)
+                if (gameBoard[newRow, newColumn] == searchedItem)
                 {
-                    matrix[newRow, newColumn] = 0;
-                    CheckLeft(matrix, newRow, newColumn, searchedItem);
+                    gameBoard[newRow, newColumn] = 0;
+                    CheckLeft(gameBoard, newRow, newColumn, searchedItem);
                 }
                 else return;
             }
@@ -36,16 +36,16 @@
             { return; }
         }
 
-        private static void CheckRight(byte[,] matrix, int row, int column, int searchedItem)
+        private static void CheckRight(byte[,] gameBoard, int row, int column, int searchedItem)
         {
             int newRow = row;
             int newColumn = column + 1;
             try
             {
-                if (matrix[newRow, newColumn] == searchedItem)
+                if (gameBoard[newRow, newColumn] == searchedItem)
                 {
-                    matrix[newRow, newColumn] = 0;
-                    CheckRight(matrix, newRow, newColumn, searchedItem);
+                    gameBoard[newRow, newColumn] = 0;
+                    CheckRight(gameBoard, newRow, newColumn, searchedItem);
                 }
                 else return;
             }
@@ -53,16 +53,16 @@
             { return; }
         }
 
-        private static void CheckUp(byte[,] matrix, int row, int column, int searchedItem)
+        private static void CheckUp(byte[,] gameBoard, int row, int column, int searchedItem)
         {
             int newRow = row + 1;
             int newColumn = column;
             try
             {
-                if (matrix[newRow, newColumn] == searchedItem)
+                if (gameBoard[newRow, newColumn] == searchedItem)
                 {
-                    matrix[newRow, newColumn] = 0;
-                    CheckUp(matrix, newRow, newColumn, searchedItem);
+                    gameBoard[newRow, newColumn] = 0;
+                    CheckUp(gameBoard, newRow, newColumn, searchedItem);
                 }
                 else return;
             }
@@ -70,16 +70,16 @@
             { return; }
         }
 
-        private static void CheckDown(byte[,] matrix, int row, int column, int searchedItem)
+        private static void CheckDown(byte[,] gameBoard, int row, int column, int searchedItem)
         {
             int newRow = row - 1;
             int newColumn = column;
             try
             {
-                if (matrix[newRow, newColumn] == searchedItem)
+                if (gameBoard[newRow, newColumn] == searchedItem)
                 {
-                    matrix[newRow, newColumn] = 0;
-                    CheckDown(matrix, newRow, newColumn, searchedItem);
+                    gameBoard[newRow, newColumn] = 0;
+                    CheckDown(gameBoard, newRow, newColumn, searchedItem);
                 }
                 else return;
             }

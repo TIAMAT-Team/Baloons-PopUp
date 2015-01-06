@@ -5,13 +5,13 @@
 
     public class Balloons
     {
-        static bool isWinner(byte[,] matrix)
+        static bool isWinner(byte[,] gameBoard)
         {
-            for (int r = 0; r < matrix.GetLength(0); r++)
+            for (int r = 0; r < gameBoard.GetLength(0); r++)
             {
-                for (int c = 0; c < matrix.GetLength(1); c++)
+                for (int c = 0; c < gameBoard.GetLength(1); c++)
                 {
-                    if (matrix[r, c] != 0)
+                    if (gameBoard[r, c] != 0)
                     {
                         return false;
                     }
@@ -21,17 +21,18 @@
             return true;
         }
 
-        static void NormalizeBalloonField(byte[,] matrix)
+        static void NormalizeBalloonField(byte[,] gameBoard)
         {
             Stack<byte> stek = new Stack<byte>();
-            int columnLenght = matrix.GetLength(0);
-            for (int j = 0; j < matrix.GetLength(1); j++)
+            int columnLenght = gameBoard.GetLength(0);
+
+            for (int j = 0; j < gameBoard.GetLength(1); j++)
             {
                 for (int i = 0; i < columnLenght; i++)
                 {
-                    if (matrix[i, j] != 0)
+                    if (gameBoard[i, j] != 0)
                     {
-                        stek.Push(matrix[i, j]);
+                        stek.Push(gameBoard[i, j]);
                     }
                 }
 
@@ -39,11 +40,11 @@
                 {
                     try
                     {
-                        matrix[k, j] = stek.Pop();
+                        gameBoard[k, j] = stek.Pop();
                     }
                     catch (Exception)
                     {
-                        matrix[k, j] = 0;
+                        gameBoard[k, j] = 0;
                     }
                 }
             }
@@ -52,9 +53,9 @@
         static void Main(string[] args)
         {
             string[,] topFive = new string[5, 2];
-            byte[,] matrix = BalloonsField.GenerateRandomField(5, 10);
+            byte[,] gameBoard = BalloonsField.GenerateRandomField(5, 10);
 
-            DrawMatrix(matrix);
+            DrawGameBoard(gameBoard);
 
             string userInput = null;
             int userMoves = 0;
@@ -66,8 +67,8 @@
                 switch (userInput)
                 {
                     case "RESTART":
-                        matrix = BalloonsField.GenerateRandomField(5, 10);
-                        DrawMatrix(matrix);
+                        gameBoard = BalloonsField.GenerateRandomField(5, 10);
+                        DrawGameBoard(gameBoard);
                         userMoves = 0;
                         break;
 
@@ -88,29 +89,29 @@
                         }
                         else
                         {
-                            Console.WriteLine("Wrong input ! Try Again ! ");
+                            Console.WriteLine("Wrong input! Try Again! ");
                             continue;
                         }
 
-                        if (BalloonPopper.IsBalloonPopped(matrix, userRow, userColumn))
+                        if (BalloonPopper.IsBalloonPopped(gameBoard, userRow, userColumn))
                         {
-                            Console.WriteLine("cannot pop missing ballon!");
+                            Console.WriteLine("Cannot pop missing ballon!");
                             continue;
                         }
                         else
                         {
-                            BalloonPopper.PopBalloons(matrix, userRow, userColumn);
+                            BalloonPopper.PopBalloons(gameBoard, userRow, userColumn);
                         }
 
                         userMoves++;
-                        NormalizeBalloonField(matrix);
+                        NormalizeBalloonField(gameBoard);
                         
-                        if (isWinner(matrix))
+                        if (isWinner(gameBoard))
                         {
-                            GameOver(topFive, ref matrix, ref userMoves);
+                            GameOver(topFive, ref gameBoard, ref userMoves);
                         }
 
-                        DrawMatrix(matrix);
+                        DrawGameBoard(gameBoard);
                         break;
                 }
             }
@@ -123,18 +124,18 @@
             return (userInput.Length == 3) && (userInput[0] >= '0' && userInput[0] <= '9' && userInput[0] <= '4') && (userInput[2] >= '0' && userInput[2] <= '9') && (userInput[1] == ' ' || userInput[1] == '.' || userInput[1] == ',');
         }
 
-        private static void GameOver(string[,] topFive, ref byte[,] matrix, ref int userMoves)
+        private static void GameOver(string[,] topFive, ref byte[,] gameBoard, ref int userMoves)
         {
-            Console.WriteLine("Gratz ! You completed it in {0} moves.", userMoves);
+            Console.WriteLine("Congratulations! You completed it in {0} moves.", userMoves);
             if (RankList.SignIfSkilled(topFive, userMoves))
             {
                 RankList.Print(topFive);
             }
             else
             {
-                Console.WriteLine("I am sorry you are not skillful enough for TopFive chart!");
+                Console.WriteLine("I am sorry, your score is not high enough to be in top five chart!");
             }
-            matrix = BalloonsField.GenerateRandomField(5, 10);
+            gameBoard = BalloonsField.GenerateRandomField(5, 10);
             userMoves = 0;
         }
 
@@ -147,41 +148,41 @@
             return userInput;
         }
 
-        private static void DrawMatrix(byte[,] matrix)
+        private static void DrawGameBoard(byte[,] gameBoard)
         {
             Console.Write("    ");
-            for (byte column = 0; column < matrix.GetLongLength(1); column++)
+            for (byte column = 0; column < gameBoard.GetLongLength(1); column++)
             {
                 Console.Write(column + " ");
             }
 
             Console.Write("\n   ");
-            for (byte column = 0; column < (matrix.GetLongLength(1) * 2) + 1; column++)
+            for (byte column = 0; column < (gameBoard.GetLongLength(1) * 2) + 1; column++)
             {
                 Console.Write("-");
             }
 
             Console.WriteLine();
 
-            for (byte i = 0; i < matrix.GetLongLength(0); i++)
+            for (byte i = 0; i < gameBoard.GetLongLength(0); i++)
             {
                 Console.Write(i + " | ");
-                for (byte j = 0; j < matrix.GetLongLength(1); j++)
+                for (byte j = 0; j < gameBoard.GetLongLength(1); j++)
                 {
-                    if (matrix[i, j] == 0)
+                    if (gameBoard[i, j] == 0)
                     {
                         Console.Write("  ");
                         continue;
                     }
 
-                    Console.Write(matrix[i, j] + " ");
+                    Console.Write(gameBoard[i, j] + " ");
                 }
                 Console.Write("| ");
                 Console.WriteLine();
             }
 
             Console.Write("   "); 
-            for (byte column = 0; column < (matrix.GetLongLength(1) * 2) + 1; column++)
+            for (byte column = 0; column < (gameBoard.GetLongLength(1) * 2) + 1; column++)
             {
                 Console.Write("-");
             }
