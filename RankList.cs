@@ -9,14 +9,21 @@ namespace BalloonPopsGame
         private const int MaximumNumberOfTopResults = 5;
 
         private IDictionary<string, int> rankList;
+        private int movesCount;
 
         public RankList()
         {
             this.rankList = new Dictionary<string, int>(MaximumNumberOfTopResults);
+            this.movesCount = 0;
         }
 
+        public int MovesCount
+        {
+            get { return movesCount; }
+            set { movesCount = value; }
+        }
 
-        public IDictionary<string, int> GetRankList
+        public IDictionary<string, int> RankListDictionary
         {
             get
             {
@@ -25,38 +32,39 @@ namespace BalloonPopsGame
 
         }
 
-        public bool SignIfSkilled(RankList rank, int points)
+        public bool SignIfSkilled(RankList rank)
         {
-            IDictionary<string, int> rankListDictionary = rank.GetRankList;
+            int currentMoves = rank.MovesCount;
+            IDictionary<string, int> rankListDictionary = rank.RankListDictionary;
 
-            if (rankListDictionary.Values.Count != 0 && rankListDictionary.Values.Count <= MaximumNumberOfTopResults)
+            if (rankListDictionary.Values.Count != 0)
             {
-                var moves = rankListDictionary.Values;
-
-                if (rankListDictionary.Values.Count == 5)
+                if (rankListDictionary.Values.Count <= MaximumNumberOfTopResults)
                 {
-                    if (points >= moves.Min())
+                    var moves = rankListDictionary.Values;
+
+                    if (currentMoves >= moves.Min())
                     {
                         var itemToBeRemoved = rankListDictionary.First(move => move.Value == moves.Min());
                         rankListDictionary.Remove(itemToBeRemoved.Key);
                         Console.WriteLine("Type in your name.");
                         string userName = Console.ReadLine();
-                        rankListDictionary.Add(userName, points);
+                        rankListDictionary.Add(userName, currentMoves);
 
                         return true;
                     }
                 }
+                return false;
+
             }
             else
             {
                 Console.WriteLine("Type in your name.");
                 string userName = Console.ReadLine();
-                rankListDictionary.Add(userName, points);
+                rankListDictionary.Add(userName, currentMoves);
 
                 return true;
             }
-
-            return false;
         }
     }
 }

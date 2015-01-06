@@ -46,8 +46,8 @@
                         break;
 
                     case "TOP":
-                        // TODO: replace with printer.PringMessage(topFive); topfive should be a string from the ranklist class
-                        printer.PrintRankList(rankList.GetRankList);
+                            
+                        printer.PrintRankList(rankList.RankListDictionary);
                         break;
 
                     case "EXIT":
@@ -102,7 +102,7 @@
         private static void GameOver(RankList rankList, ref BalloonsField matrix, ref int userMoves)
         {
             Console.WriteLine("Gratz ! You completed it in {0} moves.", userMoves);
-            if (rankList.SignIfSkilled(rankList, userMoves))
+            if (rankList.SignIfSkilled(rankList))
             {
                 //TODO: printer.PrintRankList(rankList.GetRankList);
             }
