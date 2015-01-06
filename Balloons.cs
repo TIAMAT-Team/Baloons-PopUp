@@ -10,16 +10,16 @@
     {
         static void Main(string[] args)
         {
-            string[,] topFive = new string[5, 2];
             var matrix = new BalloonsField(5, 10);
+            RankList rankList = new RankList();
             IPrinter printer = new ConsolePrinter();
             ICommandParser commandParser = new CommandParser();
             ICommandInfo commandInfo;
-            ICommandFactory commandFactory = new CommandFactory(printer);
+            ICommandFactory commandFactory = new CommandFactory(printer, rankList);
 
 
 
-            RankList rankList = new RankList();
+
 
             printer.PrintField(matrix);
 
@@ -43,10 +43,6 @@
                 switch (userInput)
                 {
 
-                    case "TOP":
-
-                        printer.PrintRankList(rankList.RankListDictionary);
-                        break;
 
                     case "EXIT":
                         printer.PringMessage("Good Bye! ");
