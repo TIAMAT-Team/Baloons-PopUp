@@ -10,7 +10,8 @@
         public ICommandInfo Parse(string input)
         {
             var splittedInput = input.Split(new char[] { ' ', '.', ',' });
-            var arguments = splittedInput.Skip(1).Take(splittedInput.Length - 1);
+
+            var arguments = splittedInput.Take(splittedInput.Length);
             var commandInfo = new CommandInfo(splittedInput[0], arguments);
 
             return commandInfo;

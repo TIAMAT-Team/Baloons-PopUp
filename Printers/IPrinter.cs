@@ -10,7 +10,7 @@ namespace BalloonPopsGame.Printers
     {
         void PrintField(BalloonsField gameBoard);
 
-        void PringMessage(string message);
+        void PrintMessage(string message);
 
         void PrintRankList(IDictionary<string, int> rankList);
     }

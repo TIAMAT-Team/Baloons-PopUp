@@ -10,18 +10,20 @@
     {
         private IPrinter printer;
         private RankList rankList;
+        private BalloonsField gameBoard;
 
-        public CommandFactory(IPrinter printer, RankList rankList)
+        public CommandFactory(IPrinter printer, RankList rankList, BalloonsField gameBoard)
         {
             this.printer = printer;
             this.rankList = rankList;
+            this.gameBoard = gameBoard;
         }
 
         public IBalloonPopsCommand CreateCommand(ICommandInfo commandInfo)
         {
             IBalloonPopsCommand balloonPopsCommand;
             var commandName = commandInfo.CommandName;
-            var arguments = commandInfo.Arguments;
+            var arguments = commandInfo.Arguments.ToArray();
 
             if (commandName.StartsWith("RESTART"))
             {
@@ -30,6 +32,18 @@
             else if (commandName.StartsWith("TOP"))
             {
                 balloonPopsCommand = new TopCommand(this.printer, this.rankList);
+            }
+            else if (arguments.Count() == 2)
+            {
+                int row;
+                int col;
+
+                if (!int.TryParse(arguments[0], out row) || !int.TryParse(arguments[1], out col))
+                {
+                    throw new ArgumentException("Invalid parameters for the command.");
+                }
+
+                balloonPopsCommand = new BalloonsPopCommand(row, col, this.printer, this.rankList, this.gameBoard);
             }
             else
             {

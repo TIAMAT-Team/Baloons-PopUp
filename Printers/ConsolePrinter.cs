@@ -57,7 +57,7 @@
             Console.Write(sb.ToString());
         }
 
-        public void PringMessage(string message)
+        public void PrintMessage(string message)
         {
             Console.WriteLine(message);
         }
