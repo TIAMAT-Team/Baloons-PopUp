@@ -51,9 +51,12 @@ namespace BalloonPopsGame.Commands
 
         private void GameOver(RankList rankList, IBalloonsField matrix)
         {
-            this.printer.PrintMessage(String.Format("Gratz ! You completed it in {0} moves.", rankList.MovesCount));
-            if (rankList.SignIfSkilled(rankList))
+            int currentMoves = rankList.MovesCount;
+
+            this.printer.PrintMessage(String.Format("Gratz ! You completed it in {0} moves.", currentMoves));
+            if (rankList.IsCurrentPlayerAdded(currentMoves))
             {
+
                 printer.PrintRankList(rankList.RankListDictionary);
             }
             else
