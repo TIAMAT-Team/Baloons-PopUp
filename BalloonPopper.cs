@@ -4,12 +4,12 @@
 
     public static class BalloonPopper
     {
-        public static bool IsBalloonPopped(BalloonsField matrix, int row, int col)
+        public static bool IsBalloonPopped(IBalloonsField matrix, int row, int col)
         {
             return matrix[row, col] == 0;
         }
 
-        public static void PopBalloons(BalloonsField matrix, int row, int col)
+        public static void PopBalloons(IBalloonsField matrix, int row, int col)
         {
             byte searchedTarget = matrix[row, col];
             matrix[row, col] = 0;
@@ -19,7 +19,7 @@
             CheckDown(matrix, row, col, searchedTarget);
         }
 
-        private static void CheckLeft(BalloonsField matrix, int row, int column, int searchedItem)
+        private static void CheckLeft(IBalloonsField matrix, int row, int column, int searchedItem)
         {
             int newRow = row;
             int newColumn = column - 1;
@@ -34,7 +34,7 @@
             catch (IndexOutOfRangeException) { }
         }
 
-        private static void CheckRight(BalloonsField matrix, int row, int column, int searchedItem)
+        private static void CheckRight(IBalloonsField matrix, int row, int column, int searchedItem)
         {
             int newRow = row;
             int newColumn = column + 1;
@@ -49,7 +49,7 @@
             catch (IndexOutOfRangeException) { }
         }
 
-        private static void CheckUp(BalloonsField matrix, int row, int column, int searchedItem)
+        private static void CheckUp(IBalloonsField matrix, int row, int column, int searchedItem)
         {
             int newRow = row + 1;
             int newColumn = column;
@@ -64,7 +64,7 @@
             catch (IndexOutOfRangeException) { }
         }
 
-        private static void CheckDown(BalloonsField matrix, int row, int column, int searchedItem)
+        private static void CheckDown(IBalloonsField matrix, int row, int column, int searchedItem)
         {
             int newRow = row - 1;
             int newColumn = column;

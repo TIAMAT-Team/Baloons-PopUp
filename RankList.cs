@@ -29,7 +29,7 @@ namespace BalloonPopsGame
             set { rankList = value; }
         }
 
-       public bool SignIfSkilled(RankList rank)
+        public bool SignIfSkilled(RankList rank)
         {
             int currentMoves = rank.MovesCount;
             IDictionary<string, int> rankListDictionary = rank.RankListDictionary;
@@ -52,6 +52,7 @@ namespace BalloonPopsGame
                     {
                         var itemToBeRemoved = rankListDictionary.First(move => move.Value == moves.Min());
                         rankListDictionary.Remove(itemToBeRemoved.Key);
+
                         Console.WriteLine("Type in your name.");
                         string userName = Console.ReadLine();
                         rankListDictionary.Add(userName, currentMoves);

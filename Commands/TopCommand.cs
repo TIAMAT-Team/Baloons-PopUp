@@ -1,11 +1,7 @@
-﻿using BalloonPopsGame.Printers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace BalloonPopsGame.Commands
+﻿namespace BalloonPopsGame.Commands
 {
+    using BalloonPopsGame.Printers;
+
     public class TopCommand : IBalloonPopsCommand
     {
         private IPrinter printer;

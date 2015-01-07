@@ -10,14 +10,14 @@
     {
         static void Main(string[] args)
         {
-            var matrix = new BalloonsField(5, 10);
+            var balloonsField = new BalloonsField(5, 10);
             RankList rankList = new RankList();
             IPrinter printer = new ConsolePrinter();
             ICommandParser commandParser = new CommandParser();
             ICommandInfo commandInfo;
-            ICommandFactory commandFactory = new CommandFactory(printer, rankList, matrix);
+            ICommandFactory commandFactory = new CommandFactory(printer, rankList, balloonsField);
 
-            printer.PrintField(matrix);
+            printer.PrintField(balloonsField);
 
             string userInput;
 

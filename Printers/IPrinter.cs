@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace BalloonPopsGame.Printers
+﻿namespace BalloonPopsGame.Printers
 {
+    using System.Collections.Generic;
+
     public interface IPrinter
     {
-        void PrintField(BalloonsField gameBoard);
+        void PrintField(IBalloonsField gameBoard);
 
         void PrintMessage(string message);
 

@@ -4,10 +4,10 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+
     public class ConsolePrinter : IPrinter
     {
-
-        public void PrintField(BalloonsField gameBoard)
+        public void PrintField(IBalloonsField gameBoard)
         {
             StringBuilder sb = new StringBuilder();
             var columns = gameBoard.Size()[1];
@@ -73,7 +73,7 @@
                 int counter = 1;
 
                 var items = from pair in rankList
-                            orderby pair.Value ascending 
+                            orderby pair.Value ascending
                             select pair;
 
                 foreach (KeyValuePair<string, int> pair in items)

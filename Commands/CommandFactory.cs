@@ -10,9 +10,9 @@
     {
         private IPrinter printer;
         private RankList rankList;
-        private BalloonsField gameBoard;
+        private IBalloonsField gameBoard;
 
-        public CommandFactory(IPrinter printer, RankList rankList, BalloonsField gameBoard)
+        public CommandFactory(IPrinter printer, RankList rankList, IBalloonsField gameBoard)
         {
             this.printer = printer;
             this.rankList = rankList;

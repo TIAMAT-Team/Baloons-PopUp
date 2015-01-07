@@ -12,9 +12,9 @@ namespace BalloonPopsGame.Commands
         private int poppingColumn;
         private IPrinter printer;
         private RankList rankList;
-        private BalloonsField gameBoard;
+        private IBalloonsField gameBoard;
 
-        public BalloonsPopCommand(int poppingRow, int poppingColumn, IPrinter printer, RankList rankList, BalloonsField gameBoard)
+        public BalloonsPopCommand(int poppingRow, int poppingColumn, IPrinter printer, RankList rankList, IBalloonsField gameBoard)
         {
             this.poppingRow = poppingRow;
             this.poppingColumn = poppingColumn;
@@ -40,28 +40,29 @@ namespace BalloonPopsGame.Commands
             this.rankList.MovesCount++;
             this.gameBoard.NormalizeBalloonField();
 
-            if (gameBoard.isWinner())
+            if (gameBoard.IsEmpty())
             {
-                GameOver(this.rankList, this.gameBoard, this.rankList.MovesCount);
+                GameOver(this.rankList, this.gameBoard);
             }
 
             printer.PrintField(gameBoard);
 
         }
 
-        private void GameOver(RankList rankList, BalloonsField matrix, int userMoves)
+        private void GameOver(RankList rankList, IBalloonsField matrix)
         {
-            this.printer.PrintMessage(String.Format("Gratz ! You completed it in {0} moves.", userMoves));
+            this.printer.PrintMessage(String.Format("Gratz ! You completed it in {0} moves.", rankList.MovesCount));
             if (rankList.SignIfSkilled(rankList))
             {
                 printer.PrintRankList(rankList.RankListDictionary);
             }
             else
             {
-                Console.WriteLine("I am sorry you are not skillful enough for TopFive chart!");
+                this.printer.PrintMessage("I am sorry you are not skillful enough for TopFive chart!");
             }
+
             matrix = new BalloonsField(5, 10);
-            userMoves = 0;
+            rankList.MovesCount = 0;
         }
     }
 }

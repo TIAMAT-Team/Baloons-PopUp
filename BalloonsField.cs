@@ -4,26 +4,25 @@
     using System.Collections.Generic;
     using System.Text;
 
-    public class BalloonsField
+    public class BalloonsField : IBalloonsField
     {
         private static readonly int balloonTypesCount = 4;
-        private int rows;
-        private int columns;
+        private int rowsCount;
+        private int columnsCount;
         private byte[,] field;
 
         public BalloonsField(byte rows, byte columns)
         {
-            this.rows = rows;
-            this.columns = columns;
+            this.rowsCount = rows;
+            this.columnsCount = columns;
             this.field = this.GenerateRandomField(rows, columns);
         }
-
-
+        
         public byte this[int row, int col]
         {
             get
             {
-                if (row >= 0 && col >= 0 && row < this.rows && col < this.columns)
+                if (row >= 0 && col >= 0 && row < this.rowsCount && col < this.columnsCount)
                 {
                     return this.field[row, col];
                 }
@@ -35,7 +34,7 @@
 
             set
             {
-                if (row >= 0 && col >= 0 && row < this.rows && col < this.columns)
+                if (row >= 0 && col >= 0 && row < this.rowsCount && col < this.columnsCount)
                 {
                     this.field[row, col] = value;
                 }
@@ -46,33 +45,16 @@
             }
         }
 
-
-        private byte[,] GenerateRandomField(byte rows, byte columns)
-        {
-            byte[,] field = new byte[rows, columns];
-            Random randNumber = new Random();
-            for (byte row = 0; row < rows; row++)
-            {
-                for (byte column = 0; column < columns; column++)
-                {
-                    byte tempByte = (byte)randNumber.Next(1, balloonTypesCount + 1);
-                    field[row, column] = tempByte;
-                }
-            }
-
-            return field;
-        }
-
         public int[] Size()
         {
-            return new int[] { this.rows, this.columns };
+            return new int[] { this.rowsCount, this.columnsCount };
         }
 
-        public bool isWinner()
+        public bool IsEmpty()
         {
-            for (int r = 0; r < this.rows; r++)
+            for (int r = 0; r < this.rowsCount; r++)
             {
-                for (int c = 0; c < this.columns; c++)
+                for (int c = 0; c < this.columnsCount; c++)
                 {
                     if (this[r, c] != 0)
                     {
@@ -86,11 +68,12 @@
 
         public void NormalizeBalloonField()
         {
+            // TODO: replace columnLength with this.rowsCount
             Stack<byte> stek = new Stack<byte>();
-            int columnLenght = this.rows;
-            for (int j = 0; j < this.columns; j++)
+            int columnLength = this.rowsCount;
+            for (int j = 0; j < this.columnsCount; j++)
             {
-                for (int i = 0; i < columnLenght; i++)
+                for (int i = 0; i < columnLength; i++)
                 {
                     if (this[i, j] != 0)
                     {
@@ -98,7 +81,7 @@
                     }
                 }
 
-                for (int k = columnLenght - 1; k >= 0; k--)
+                for (int k = columnLength - 1; k >= 0; k--)
                 {
                     try
                     {
@@ -111,5 +94,25 @@
                 }
             }
         }
+
+        private byte[,] GenerateRandomField(byte rowsCount, byte columnsCount)
+        {
+            byte[,] balloonsField = new byte[rowsCount, columnsCount];
+            Random randNumber = new Random();
+            for (byte row = 0; row < rowsCount; row++)
+            {
+                for (byte column = 0; column < columnsCount; column++)
+                {
+                    byte tempByte = (byte)randNumber.Next(1, balloonTypesCount + 1);
+                    balloonsField[row, column] = tempByte;
+                }
+            }
+
+            return balloonsField;
+        }
+
+
+
+
     }
 }
